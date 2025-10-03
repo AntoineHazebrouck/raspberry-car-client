@@ -1,10 +1,11 @@
 package antoine.raspberry_car_client;
 
 import javax.swing.JFrame;
+import org.springframework.context.ApplicationContext;
 
 public class MainFrame extends JFrame {
 
-    public MainFrame() {
+    public MainFrame(ApplicationContext app) {
         setTitle("raspberry-car-client");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -13,6 +14,6 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        getContentPane().add(new InputListenerPanel());
+        getContentPane().add(new InputListenerPanel(app));
     }
 }

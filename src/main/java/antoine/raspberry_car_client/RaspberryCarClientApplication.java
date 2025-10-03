@@ -16,6 +16,6 @@ public class RaspberryCarClientApplication {
 
         var mainWindow = app.getBean(WindowOpener.class);
 
-        SwingUtilities.invokeLater(() -> mainWindow.open());
+        SwingUtilities.invokeLater(() -> mainWindow.open(app));
     }
 }

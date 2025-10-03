@@ -17,6 +17,8 @@ import org.springframework.web.socket.messaging.WebSocketStompClient;
 @Service
 public class WebSocketConnection {
 
+    private StompSession session;
+
     public WebSocketConnection() {
         var socket = new WebSocketStompClient(new StandardWebSocketClient());
         socket.setMessageConverter(new MappingJackson2MessageConverter());
@@ -59,16 +61,23 @@ public class WebSocketConnection {
                         );
                     }
 
+                    @Override
                     public @NonNull Type getPayloadType(
                         @NonNull StompHeaders headers
                     ) {
-                        return Hello.class;
+                        return MotorControls.class;
                     }
                 }
             )
             .thenAccept(session -> {
-                log.info("Sending message to the car");
-                session.send("/hello", new Hello("totoooooooooooo"));
+                log.info("Registering the StompSession");
+                this.session = session;
             });
+    }
+
+    public void send(double power, boolean forward) {
+        if (session != null) {
+            session.send("/motor-controls", new MotorControls(power, forward));
+        }
     }
 }
