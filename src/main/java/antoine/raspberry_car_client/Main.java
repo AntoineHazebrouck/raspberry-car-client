@@ -55,8 +55,6 @@ public class Main {
     }
 
     private void handleInputs(Controller gamepad) {
-        // Event event = new Event();
-
         if (!gamepad.poll()) log.error("controller disconnected or is invalid");
 
         Component[] components = gamepad.getComponents();
@@ -68,6 +66,7 @@ public class Main {
                 double power = data * -100;
                 // forward
                 if (power >= 0) socket.send(power, true);
+                else socket.send(Math.abs(power), false);
             }
 
             if (
