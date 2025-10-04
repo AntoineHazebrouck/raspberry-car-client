@@ -78,6 +78,8 @@ public class WebSocketConnection {
     public void send(double power, boolean forward) {
         if (session != null) {
             session.send("/motor-controls", new MotorControls(power, forward));
+        } else {
+            log.info("socket session was null");
         }
     }
 }
